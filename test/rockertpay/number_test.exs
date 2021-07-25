@@ -21,7 +21,6 @@ defmodule Rocketpay.NumbersTest do
     end
   end
 
-
   defp expect(resulted, expected) do
     resulted == expected
   end
