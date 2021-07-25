@@ -8,3 +8,4 @@ erl_crash.dump
 rocketpay-*.tar
 /priv/static/
 .vscode
+.elixir_ls/*
