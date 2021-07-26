@@ -11,6 +11,7 @@ defmodule RocketpayWeb.Router do
     post "/users", UsersController, :create
     post "/accounts/:id/deposit", AccountsController, :deposit
     post "/accounts/:id/withdraw", AccountsController, :withdraw
+    post "/accounts/:id/transaction", AccountsController, :transaction
   end
 
   if Mix.env() in [:dev, :test] do
