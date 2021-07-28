@@ -1,8 +1,10 @@
 defmodule RocketpayWeb.AccountsController do
   use RocketpayWeb, :controller
 
-  alias Rocketpay.Schema.{Account}
-  alias Rocketpay.Accounts.Transaction
+  alias Rocketpay.Schema.Account
+  alias Rocketpay.Accounts.Transaction.DTO.Request, as: TransactionRequest
+  alias Rocketpay.Accounts.Transaction.DTO.Response, as: TransactionResponse
+  alias Rocketpay.Validator
 
   action_fallback RocketpayWeb.FallbackController
 
@@ -23,9 +25,10 @@ defmodule RocketpayWeb.AccountsController do
   end
 
   def transaction(conn, params) do
-    with {:ok, %Transaction.DTO.Response{} = transaction} <-
+    with {:ok, %TransactionResponse{} = transaction} <-
            params
-           |> Transaction.DTO.Request.adapt()
+           |> TransactionRequest.new()
+           |> Validator.validate()
            |> Rocketpay.transaction_account() do
       conn
       |> put_status(:ok)

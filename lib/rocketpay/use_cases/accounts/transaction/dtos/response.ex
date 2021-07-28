@@ -1,9 +1,9 @@
 defmodule Rocketpay.Accounts.Transaction.DTO.Response do
   alias Rocketpay.Schema.Account
 
-  defstruct from: nil, to: nil
+  defstruct [:from, :to]
 
-  def generate(%Account{} = from, %Account{} = to) do
+  def new(%Account{} = from, %Account{} = to) do
     %__MODULE__{
       from: from,
       to: to

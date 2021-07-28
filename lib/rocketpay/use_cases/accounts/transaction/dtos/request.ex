@@ -1,13 +1,24 @@
 defmodule Rocketpay.Accounts.Transaction.DTO.Request do
+  use Vex.Struct
+
   defstruct [:id, :to, :value]
 
-  def adapt(json) do
-    json
-    |> Utils.from_keyword_to_atom()
-    |> generate()
-  end
+  validates(:id,
+    uuid: true,
+    presence: true
+  )
 
-  def generate(%{id: id, to: to, value: value}) do
+  validates(:to,
+    uuid: true,
+    presence: true
+  )
+
+  validates(:value,
+    number: true,
+    presence: true
+  )
+
+  def new(%{"id" => id, "to" => to, "value" => value}) do
     %__MODULE__{
       id: id,
       to: to,
