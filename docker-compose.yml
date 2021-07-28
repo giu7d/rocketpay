@@ -1,17 +1,30 @@
 version: "3"
 
 services:
-  rocketpay-postgres-db:
+  app:
+    env_file: .env
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+    volumes:
+      - ".:/usr/app"
+
+  db:
     image: postgres:12.4-alpine
-    container_name: rocketpay-postgres-db
     restart: on-failure
     ports:
       - "5432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+      PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
-      - dbdata:/data/db
+      - "dbdata:/var/lib/postgresql/data/pgdata"
 
 volumes:
   dbdata:

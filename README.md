@@ -1,19 +1,21 @@
 # Rocketpay
 
-To start your Phoenix server:
+To use this software with `docker-compose` use:
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Start Phoenix endpoint with `mix phx.server`
+First we need to build our Docker image:
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+```bash
+$ docker-compose build
+```
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+**If you don't have the database setup yet**, run this before starting the application. The command will create the database and update the migrations only if needed.
 
-## Learn more
+```
+$ docker-compose run app mix ecto.setup
+```
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+To start the application:
+
+```
+$ docker-compose up
+```
